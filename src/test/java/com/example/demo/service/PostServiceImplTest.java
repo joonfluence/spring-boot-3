@@ -6,14 +6,18 @@ import com.example.demo.dto.post.PostSaveDto;
 import com.example.demo.dto.post.PostUpdateDto;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.PostRepository;
-import com.example.demo.repository.jpa.MemberJpaRepository;
+import com.example.demo.repository.jdbc.MemberJdbcRepository;
 import com.example.demo.repository.jpa.PostJpaRepository;
+import com.zaxxer.hikari.HikariDataSource;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.sql.DataSource;
 
 @Transactional
 @SpringBootTest
@@ -24,16 +28,6 @@ class PostServiceImplTest {
     PostRepository postRepository;
     @Autowired
     MemberRepository memberRepository;
-
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-
-    }
 
     @TestConfiguration
     static class TestConfig{
@@ -49,7 +43,11 @@ class PostServiceImplTest {
 
         @Bean
         public MemberRepository memberRepository(){
-            return new MemberJpaRepository();
+            HikariDataSource dataSource = new HikariDataSource();
+            dataSource.setJdbcUrl("jdbc:h2:tcp://localhost/~/jpa");
+            dataSource.setUsername("sa");
+            dataSource.setPassword("");
+            return new MemberJdbcRepository(dataSource, new JdbcTemplate(dataSource));
         }
 
         @Bean
