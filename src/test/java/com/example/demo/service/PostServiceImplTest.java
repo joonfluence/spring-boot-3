@@ -39,7 +39,7 @@ class PostServiceImplTest {
     static class TestConfig{
         @Bean
         public PostService postService(){
-            return new PostServiceImpl(postRepository());
+            return new PostServiceImpl(postRepository(), notificationService());
         }
 
         @Bean
@@ -50,6 +50,11 @@ class PostServiceImplTest {
         @Bean
         public MemberRepository memberRepository(){
             return new MemberJpaRepository();
+        }
+
+        @Bean
+        public NotificationService notificationService(){
+            return new NotificationServiceImpl();
         }
     }
 
@@ -78,16 +83,14 @@ class PostServiceImplTest {
         PostSaveDto saveDto = new PostSaveDto(savedMemberId, "Hello World");
         Long saveId = postService.createPost(saveDto);
         Post oldPost = postRepository.findById(saveId);
-        System.out.println("oldPost.getName() = " + oldPost.getName());
-        System.out.println("saveId = " + saveId);
+        int oldLikeCount = oldPost.getLikeCount();
 
         // when
         PostUpdateDto updateDto = new PostUpdateDto(saveId, oldPost.getName(), oldPost.getLikeCount() + 1);
-        System.out.println("updateDto.getLikeCount() = " + updateDto.getLikeCount());
         postService.sendLike(updateDto);
 
         // then
         Post newPost = postRepository.findById(saveId);
-        Assertions.assertEquals(oldPost.getLikeCount() + 1, newPost.getLikeCount());
+        Assertions.assertEquals(oldLikeCount + 1, newPost.getLikeCount());
     }
 }

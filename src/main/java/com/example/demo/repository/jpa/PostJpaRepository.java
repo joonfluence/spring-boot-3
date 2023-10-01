@@ -42,8 +42,9 @@ public class PostJpaRepository implements PostRepository {
     @Override
     @Transactional
     public void update(PostUpdateDto dto) {
-        Post post = Post.builder().id(dto.getId()).name(dto.getName()).likeCount(dto.getLikeCount()).build();
-        post.update(post);
+        Post post = findById(dto.getId());
+        Post newPost = Post.builder().id(dto.getId()).name(dto.getName()).likeCount(dto.getLikeCount()).build();
+        post.update(newPost);
     }
 
     @Override
