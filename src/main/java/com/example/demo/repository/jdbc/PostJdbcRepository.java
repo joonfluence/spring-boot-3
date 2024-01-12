@@ -1,6 +1,6 @@
 package com.example.demo.repository.jdbc;
 
-import com.example.demo.domain.Post;
+import com.example.demo.entity.Post;
 import com.example.demo.dto.post.PostSaveDto;
 import com.example.demo.dto.post.PostUpdateDto;
 import com.example.demo.repository.PostRepository;

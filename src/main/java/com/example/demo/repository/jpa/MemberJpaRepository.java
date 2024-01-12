@@ -1,6 +1,6 @@
 package com.example.demo.repository.jpa;
 
-import com.example.demo.domain.Member;
+import com.example.demo.entity.Member;
 import com.example.demo.dto.member.MemberSaveDto;
 import com.example.demo.dto.member.MemberUpdateDto;
 import com.example.demo.repository.MemberRepository;

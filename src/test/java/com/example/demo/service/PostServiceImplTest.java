@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Post;
+import com.example.demo.entity.Post;
 import com.example.demo.dto.member.MemberSaveDto;
 import com.example.demo.dto.post.PostSaveDto;
 import com.example.demo.dto.post.PostUpdateDto;
@@ -16,8 +16,6 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.sql.DataSource;
 
 @Transactional
 @SpringBootTest

@@ -1,7 +1,7 @@
 package com.example.demo.repository.jpa;
 
-import com.example.demo.domain.Member;
-import com.example.demo.domain.Post;
+import com.example.demo.entity.Member;
+import com.example.demo.entity.Post;
 import com.example.demo.dto.post.PostSaveDto;
 import com.example.demo.dto.post.PostUpdateDto;
 import com.example.demo.repository.MemberRepository;
