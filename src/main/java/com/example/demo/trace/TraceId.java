@@ -19,19 +19,23 @@ public class TraceId {
         this.level = level;
     }
 
-    private String createId() {
+    public String createId() {
         return UUID.randomUUID().toString().substring(0, 8);
     }
 
-    private TraceId createNextTraceId() {
-        return new TraceId(createId(), this.level + 1);
+    public TraceId createNextTraceId() {
+        return new TraceId(createId(), level + 1);
     }
 
-    private TraceId createPreviousTraceId() {
-        return new TraceId(createId(), this.level - 1);
+    public TraceId createNextTraceId(TraceId traceId) {
+        return new TraceId(traceId.getId(), traceId.getLevel() + 1);
     }
 
-    private boolean isFirstLevel(){
+    public TraceId createPreviousTraceId() {
+        return new TraceId(createId(), level - 1);
+    }
+
+    public boolean isFirstLevel(){
         return this.level == 0;
     }
 }
